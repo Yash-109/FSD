@@ -1,31 +1,43 @@
-// Hardcoded weather data for demo
+// weatherData: This object holds hardcoded weather information for specific cities
 const weatherData = {
-  "New York": { temp: 22, desc: "Sunny" },
-  London: { temp: 18, desc: "Cloudy" },
-  Paris: { temp: 20, desc: "Partly Cloudy" },
-  Tokyo: { temp: 25, desc: "Clear" },
-  Mumbai: { temp: 30, desc: "Humid" },
+  "Ahmedabad": { temp: 40 },
+  "Mumbai": { temp: 32 },
+  "Delhi": { temp: 35 },
+  "Bangalore": { temp: 25 },
+  "Chennai": { temp: 38 },
+  "Kolkata": { temp: 34 },
+  "Hyderabad": { temp: 30 },
+  "Pune": { temp: 28 }
 };
 
 const cityInput = document.getElementById("cityInput");
 const getWeatherBtn = document.getElementById("getWeatherBtn");
 const weatherResult = document.getElementById("weatherResult");
 
-getWeatherBtn.addEventListener("click", () => {
+// addEventListener: Listens for a click event on the Get Weather button
+getWeatherBtn.addEventListener("click", function() {
+  // Fetching Weather: When the button is clicked, it retrieves the city entered by the user
   const city = cityInput.value.trim();
+  
   if (!city) {
     weatherResult.textContent = "Please enter a city name.";
     return;
   }
+  
+  // checks if weather data exists in weatherData
   const weather = weatherData[city];
+  
   if (weather) {
-    weatherResult.textContent = `${city}: ${weather.temp}°C, ${weather.desc}`;
+    // displays the corresponding weather information
+    weatherResult.textContent = `The weather in ${city} is ${weather.temp}°C`;
   } else {
+    // displays message if the city is not found
     weatherResult.textContent = `Weather data for '${city}' not found.`;
   }
 });
 
-cityInput.addEventListener("keydown", (e) => {
+// Allow pressing Enter to get weather
+cityInput.addEventListener("keydown", function(e) {
   if (e.key === "Enter") {
     getWeatherBtn.click();
   }

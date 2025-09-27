@@ -1,21 +1,21 @@
 /* Root variables for consistent theming */
 :root {
-  --color-primary: #007bff;
-  --color-primary-hover: #0056b3;
-  --color-success: #28a745;
-  --color-danger: #dc3545;
-  --color-warning: #ffc107;
-  --color-text: #212529;
-  --color-text-muted: #6c757d;
+  --color-primary: #6366f1;
+  --color-primary-hover: #4f46e5;
+  --color-success: #10b981;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+  --color-text: #1f2937;
+  --color-text-muted: #6b7280;
   --color-bg: #ffffff;
-  --color-bg-light: #f8f9fa;
-  --color-border: #dee2e6;
+  --color-bg-light: #f9fafb;
+  --color-border: #e5e7eb;
   --spacing-xs: 8px;
   --spacing-sm: 16px;
   --spacing-md: 24px;
   --spacing-lg: 32px;
   --spacing-xl: 48px;
-  --border-radius: 8px;
+  --border-radius: 12px;
   --font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
@@ -26,15 +26,16 @@
 
 body {
   font-family: var(--font-family);
-  background-color: var(--color-bg-light);
+  background: var(--color-bg-light);
   color: var(--color-text);
   margin: 0;
   padding: var(--spacing-md);
-  line-height: 1.5;
+  line-height: 1.6;
+  min-height: 100vh;
 }
 
 .container {
-  max-width: 600px;
+  max-width: 500px;
   margin: 0 auto;
   padding: var(--spacing-lg);
 }
@@ -42,60 +43,67 @@ body {
 h1 {
   text-align: center;
   color: var(--color-primary);
-  font-size: 32px;
-  font-weight: 600;
+  font-size: 36px;
+  font-weight: 700;
   margin: 0 0 var(--spacing-xs) 0;
+  text-shadow: none;
 }
 
 .subtitle {
   text-align: center;
   color: var(--color-text-muted);
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 var(--spacing-xl) 0;
+  font-weight: 400;
 }
 
 .calculator {
   background: var(--color-bg);
   border-radius: var(--border-radius);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: var(--spacing-lg);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: var(--spacing-xl);
+  backdrop-filter: blur(10px);
 }
 
 .form-group {
-  margin-bottom: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
 }
 
 label {
   display: block;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 16px;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: var(--spacing-sm);
   color: var(--color-text);
 }
 
 input[type="text"] {
   width: 100%;
-  padding: 12px var(--spacing-sm);
+  padding: 16px var(--spacing-md);
   border: 2px solid var(--color-border);
-  border-radius: 6px;
-  font-size: 16px;
-  transition: border-color 0.2s ease;
+  border-radius: 10px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  background: var(--color-bg-light);
 }
 
 input[type="text"]:focus {
   outline: none;
   border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
 input[type="text"]::placeholder {
   color: var(--color-text-muted);
+  font-style: italic;
 }
 
 .operation-buttons {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-sm);
-  margin-top: var(--spacing-sm);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
 }
 
 .operation-option {
@@ -108,14 +116,14 @@ input[type="text"]::placeholder {
 
 .operation-btn {
   display: block;
-  padding: 12px var(--spacing-sm);
+  padding: 16px var(--spacing-md);
   background: var(--color-bg-light);
   border: 2px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: 10px;
   text-align: center;
   font-size: 16px;
-  font-weight: 500;
-  transition: all 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
   user-select: none;
 }
 
@@ -123,73 +131,94 @@ input[type="text"]::placeholder {
   background: var(--color-primary);
   color: white;
   border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }
 
 .operation-btn:hover {
   border-color: var(--color-primary);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
 .calculate-btn {
   width: 100%;
-  padding: 16px;
-  background: var(--color-primary);
+  padding: 18px;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
   color: white;
   border: none;
-  border-radius: 6px;
-  font-size: 18px;
-  font-weight: 600;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: var(--spacing-md);
-  transition: all 0.2s ease;
+  margin-top: var(--spacing-lg);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .calculate-btn:hover {
-  background: var(--color-primary-hover);
-  transform: translateY(-1px);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
 }
 
 .calculate-btn:active {
-  transform: translateY(0);
+  transform: translateY(-1px);
 }
 
 .result-section {
-  margin-top: var(--spacing-lg);
+  margin-top: var(--spacing-xl);
   padding-top: var(--spacing-lg);
-  border-top: 1px solid var(--color-border);
+  border-top: 2px solid var(--color-border);
 }
 
 .error-message {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid #f5c6cb;
-  border-radius: 6px;
-  padding: var(--spacing-sm);
+  background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+  color: #991b1b;
+  border: 2px solid #f87171;
+  border-radius: 10px;
+  padding: var(--spacing-md);
   text-align: center;
   font-size: 16px;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  animation: shake 0.5s ease-in-out;
 }
 
 .result-message {
-  background: #d4edda;
-  color: #155724;
-  border: 1px solid #c3e6cb;
-  border-radius: 6px;
-  padding: var(--spacing-md);
+  background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+  color: #065f46;
+  border: 2px solid #34d399;
+  border-radius: 10px;
+  padding: var(--spacing-lg);
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
+  gap: var(--spacing-sm);
+  animation: bounce 0.6s ease-out;
 }
 
 .error-icon,
 .result-icon {
-  font-size: 20px;
+  font-size: 24px;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 /* Responsive design */

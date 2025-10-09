@@ -1,0 +1,14 @@
+{
+  "name": "freelance-portfolio-contact",
+  "version": "1.0.0",
+  "description": "Freelance portfolio with contact form and email functionality",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ejs": "^3.1.9",
+    "dotenv": "^16.3.1"
+  }
+}

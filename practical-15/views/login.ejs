@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Portal - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            color: #2c5530;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            color: #2c5530;
+            margin-bottom: 30px;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #4a7c59;
+        }
+        
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #2c5530 0%, #4a7c59 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(44, 85, 48, 0.3);
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .features {
+            margin-top: 30px;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .features h3 {
+            color: #2c5530;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .features li {
+            padding: 5px 0;
+            color: #666;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .features li:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">📚</div>
+        <h1>Library Portal</h1>
+        
+        <% if (error) { %>
+            <div class="error"><%= error %></div>
+        <% } %>
+        
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            
+            <button type="submit" class="login-btn">Login to Portal</button>
+        </form>
+        
+        <div class="features">
+            <h3>Portal Features:</h3>
+            <ul>
+                <li>Session tracking</li>
+                <li>User profile management</li>
+                <li>Secure login/logout</li>
+                <li>Activity monitoring</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

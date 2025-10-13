@@ -1,0 +1,1 @@
+{"message":"Welcome to Notes API","version":"1.0.0","endpoints":{"GET /api/notes":"Get all notes","GET /api/notes/:id":"Get a specific note","POST /api/notes":"Create a new note","PUT /api/notes/:id":"Update a note","DELETE /api/notes/:id":"Delete a note"}}

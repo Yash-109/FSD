@@ -1,0 +1,219 @@
+{
+	"info": {
+		"_postman_id": "notes-api-demo-collection",
+		"name": "📝 Notes API - DEMO Collection (Ready for Screenshots)",
+		"description": "🎯 **DEMO COLLECTION FOR SUBMISSION**\n\n✅ **Pre-loaded with demo data**\n✅ **Real note IDs from MongoDB**\n✅ **Ready for immediate testing**\n✅ **Perfect for screenshots**\n\n🚀 **Quick Setup:**\n1. Import this collection\n2. Set environment: baseUrl = http://localhost:3000\n3. Run requests and take screenshots\n\n📋 **Demo Notes Available:**\n- Welcome to Notes API\n- Shopping List\n- Project Meeting Notes\n- Learning Goals\n- Recipe: Chocolate Cake\n\n🔗 **Base URL:** http://localhost:3000\n📚 **All endpoints tested and working**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "🏠 1. API Info & Welcome",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 1**\n\nShows API welcome message and all available endpoints.\n\n**Expected Response:**\n- Status: 200 OK\n- Welcome message\n- List of all API endpoints\n- Version information"
+			}
+		},
+		{
+			"name": "❤️ 2. Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 2**\n\nShows server health status and uptime.\n\n**Expected Response:**\n- Status: 200 OK\n- Server status: OK\n- Current timestamp\n- Server uptime"
+			}
+		},
+		{
+			"name": "📋 3. Get All Notes (5 Demo Notes)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 3**\n\nShows all 5 demo notes with complete data.\n\n**Expected Response:**\n- Status: 200 OK\n- Count: 5\n- Array of all demo notes:\n  1. Welcome to Notes API\n  2. Shopping List\n  3. Project Meeting Notes\n  4. Learning Goals\n  5. Recipe: Chocolate Cake"
+			}
+		},
+		{
+			"name": "📄 4. Get Single Note (Welcome Note)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/68ecc6fdd218b51066d4f937",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"68ecc6fdd218b51066d4f937"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 4**\n\nShows a specific note (Welcome to Notes API).\n\n**Expected Response:**\n- Status: 200 OK\n- Single note object\n- Complete note details\n- Timestamps (created/updated)\n\n**Note ID:** 68ecc6fdd218b51066d4f937 (Welcome to Notes API)"
+			}
+		},
+		{
+			"name": "➕ 5. Create New Note (Demo)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"NEW NOTE - Postman Demo\",\n  \"content\": \"This is a new note created during Postman testing for submission. This demonstrates the CREATE operation of the Notes API. The note includes a timestamp and will be stored in MongoDB.\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/notes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 5**\n\nCreates a new note and shows the response.\n\n**Request Body (already filled):**\n- Title: \"NEW NOTE - Postman Demo\"\n- Content: Demonstration content\n\n**Expected Response:**\n- Status: 201 Created\n- Success message\n- Complete note data with new ID\n- Timestamps\n\n**COPY THE _id FROM RESPONSE** for next requests!"
+			}
+		},
+		{
+			"name": "✏️ 6. Update Note (Shopping List)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"UPDATED Shopping List ✅\",\n  \"content\": \"UPDATED weekly grocery shopping list:\\n\\n✅ Fresh vegetables and fruits\\n✅ Dairy products (milk, cheese, yogurt)\\n✅ Bread and cereals\\n✅ Chicken and fish\\n✅ Household essentials\\n\\n📝 Added during Postman testing for submission demonstration.\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/68ecc6fdd218b51066d4f938",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"68ecc6fdd218b51066d4f938"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 6**\n\nUpdates the Shopping List note with new content.\n\n**Request Body (already filled):**\n- Updated title with ✅\n- Enhanced content with checkmarks\n- Additional demo text\n\n**Expected Response:**\n- Status: 200 OK\n- Success message: \"Note updated successfully\"\n- Updated note data\n- New updatedAt timestamp\n\n**Note ID:** 68ecc6fdd218b51066d4f938 (Shopping List)"
+			}
+		},
+		{
+			"name": "🗑️ 7. Delete Note (Recipe)",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/68ecc6fdd218b51066d4f93b",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"68ecc6fdd218b51066d4f93b"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 7**\n\nDeletes the Recipe note and shows confirmation.\n\n**Expected Response:**\n- Status: 200 OK\n- Success message: \"Note deleted successfully\"\n- Deleted note data (for confirmation)\n- Complete note details before deletion\n\n**Note ID:** 68ecc6fdd218b51066d4f93b (Recipe: Chocolate Cake)"
+			}
+		},
+		{
+			"name": "📊 8. Verify Deletion (Get All Notes)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 8**\n\nVerifies the deletion by showing remaining notes.\n\n**Expected Response:**\n- Status: 200 OK\n- Count: 4 (was 5, now 4 after deletion)\n- Array of remaining notes (Recipe note should be gone)\n- Proves DELETE operation worked\n\n**Shows:**\n1. Welcome to Notes API\n2. UPDATED Shopping List ✅\n3. Project Meeting Notes\n4. Learning Goals\n\n(Recipe note deleted)"
+			}
+		},
+		{
+			"name": "❌ 9. Error Demo (Invalid ID)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/invalid-id-format",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"invalid-id-format"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 9**\n\nDemonstrates error handling with invalid note ID.\n\n**Expected Response:**\n- Status: 400 Bad Request\n- Error message: \"Invalid note ID format\"\n- Success: false\n- Shows API validation working\n\n**Purpose:** Proves the API handles errors correctly"
+			}
+		},
+		{
+			"name": "❌ 10. Error Demo (Note Not Found)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/68ecc6fdd218b51066d4f999",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"68ecc6fdd218b51066d4f999"
+					]
+				},
+				"description": "✅ **PERFECT FOR SCREENSHOT 10**\n\nDemonstrates error handling when note doesn't exist.\n\n**Expected Response:**\n- Status: 404 Not Found\n- Error message: \"Note not found\"\n- Success: false\n- Shows proper 404 handling\n\n**Note ID:** Valid format but non-existent note"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string",
+			"description": "Base URL for the Notes API server"
+		}
+	]
+}

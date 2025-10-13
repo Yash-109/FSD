@@ -2,36 +2,29 @@ const express = require('express');
 const router = express.Router();
 const Note = require('../models/Note');
 
-// GET /api/notes - Get all notes
+// @desc    Get all notes
+// @route   GET /api/notes
+// @access  Public
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, limit = 10, sort = '-createdAt' } = req.query;
-    
-    const notes = await Note.find()
-      .sort(sort)
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
-    
-    const total = await Note.countDocuments();
-    
-    res.json({
+    const notes = await Note.find().sort({ updatedAt: -1 });
+    res.status(200).json({
       success: true,
       count: notes.length,
-      total: total,
-      page: parseInt(page),
-      pages: Math.ceil(total / limit),
       data: notes
     });
   } catch (error) {
     res.status(500).json({
       success: false,
-      message: 'Failed to fetch notes',
+      message: 'Server Error',
       error: error.message
     });
   }
 });
 
-// GET /api/notes/:id - Get specific note
+// @desc    Get single note
+// @route   GET /api/notes/:id
+// @access  Public
 router.get('/:id', async (req, res) => {
   try {
     const note = await Note.findById(req.params.id);
@@ -42,12 +35,13 @@ router.get('/:id', async (req, res) => {
         message: 'Note not found'
       });
     }
-    
-    res.json({
+
+    res.status(200).json({
       success: true,
       data: note
     });
   } catch (error) {
+    // Check if error is due to invalid ObjectId
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
@@ -57,141 +51,150 @@ router.get('/:id', async (req, res) => {
     
     res.status(500).json({
       success: false,
-      message: 'Failed to fetch note',
+      message: 'Server Error',
       error: error.message
     });
   }
 });
 
-// POST /api/notes - Create new note
+// @desc    Create new note
+// @route   POST /api/notes
+// @access  Public
 router.post('/', async (req, res) => {
   try {
     const { title, content } = req.body;
-    
+
     // Validation
     if (!title || !content) {
       return res.status(400).json({
         success: false,
-        message: 'Title and content are required'
+        message: 'Please provide both title and content'
       });
     }
-    
-    const note = new Note({
-      title: title.trim(),
-      content: content.trim()
+
+    const note = await Note.create({
+      title,
+      content
     });
-    
-    const savedNote = await note.save();
-    
+
     res.status(201).json({
       success: true,
       message: 'Note created successfully',
-      data: savedNote
+      data: note
     });
   } catch (error) {
+    // Handle validation errors
     if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
         success: false,
-        message: 'Validation error',
-        errors: Object.values(error.errors).map(err => err.message)
+        message: 'Validation Error',
+        errors: messages
       });
     }
-    
+
     res.status(500).json({
       success: false,
-      message: 'Failed to create note',
+      message: 'Server Error',
       error: error.message
     });
   }
 });
 
-// PUT /api/notes/:id - Update note
+// @desc    Update note
+// @route   PUT /api/notes/:id
+// @access  Public
 router.put('/:id', async (req, res) => {
   try {
     const { title, content } = req.body;
-    
+
     // Validation
     if (!title || !content) {
       return res.status(400).json({
         success: false,
-        message: 'Title and content are required'
+        message: 'Please provide both title and content'
       });
     }
-    
-    const updatedNote = await Note.findByIdAndUpdate(
+
+    const note = await Note.findByIdAndUpdate(
       req.params.id,
+      { title, content },
       {
-        title: title.trim(),
-        content: content.trim(),
-        updatedAt: new Date()
-      },
-      { new: true, runValidators: true }
+        new: true,
+        runValidators: true
+      }
     );
-    
-    if (!updatedNote) {
+
+    if (!note) {
       return res.status(404).json({
         success: false,
         message: 'Note not found'
       });
     }
-    
-    res.json({
+
+    res.status(200).json({
       success: true,
       message: 'Note updated successfully',
-      data: updatedNote
+      data: note
     });
   } catch (error) {
+    // Check if error is due to invalid ObjectId
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
         message: 'Invalid note ID format'
       });
     }
-    
+
+    // Handle validation errors
     if (error.name === 'ValidationError') {
+      const messages = Object.values(error.errors).map(err => err.message);
       return res.status(400).json({
         success: false,
-        message: 'Validation error',
-        errors: Object.values(error.errors).map(err => err.message)
+        message: 'Validation Error',
+        errors: messages
       });
     }
-    
+
     res.status(500).json({
       success: false,
-      message: 'Failed to update note',
+      message: 'Server Error',
       error: error.message
     });
   }
 });
 
-// DELETE /api/notes/:id - Delete note
+// @desc    Delete note
+// @route   DELETE /api/notes/:id
+// @access  Public
 router.delete('/:id', async (req, res) => {
   try {
-    const deletedNote = await Note.findByIdAndDelete(req.params.id);
-    
-    if (!deletedNote) {
+    const note = await Note.findByIdAndDelete(req.params.id);
+
+    if (!note) {
       return res.status(404).json({
         success: false,
         message: 'Note not found'
       });
     }
-    
-    res.json({
+
+    res.status(200).json({
       success: true,
       message: 'Note deleted successfully',
-      data: deletedNote
+      data: note
     });
   } catch (error) {
+    // Check if error is due to invalid ObjectId
     if (error.name === 'CastError') {
       return res.status(400).json({
         success: false,
         message: 'Invalid note ID format'
       });
     }
-    
+
     res.status(500).json({
       success: false,
-      message: 'Failed to delete note',
+      message: 'Server Error',
       error: error.message
     });
   }

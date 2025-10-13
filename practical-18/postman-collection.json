@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "notes-api-collection",
+		"name": "📝 Notes API Collection",
+		"description": "Complete RESTful API for notes-taking mobile app\n\n🚀 **Getting Started:**\n1. Import this collection\n2. Set environment variable: baseUrl = http://localhost:3000\n3. Run tests in order: API Info → Create Note → Copy ID → Test other endpoints\n\n🔗 **Base URL:** http://localhost:3000\n📚 **Documentation:** See POSTMAN_TESTING_GUIDE.md",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Notes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				},
+				"description": "Retrieve all notes"
+			}
+		},
+		{
+			"name": "Get Single Note",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/{{noteId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"{{noteId}}"
+					]
+				},
+				"description": "Retrieve a specific note by ID"
+			}
+		},
+		{
+			"name": "Create New Note",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Sample Note\",\n  \"content\": \"This is a sample note content for testing purposes.\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/notes",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes"
+					]
+				},
+				"description": "Create a new note"
+			}
+		},
+		{
+			"name": "Update Note",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"title\": \"Updated Note Title\",\n  \"content\": \"This is the updated content of the note.\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/{{noteId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"{{noteId}}"
+					]
+				},
+				"description": "Update an existing note"
+			}
+		},
+		{
+			"name": "Delete Note",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/notes/{{noteId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"notes",
+						"{{noteId}}"
+					]
+				},
+				"description": "Delete a note by ID"
+			}
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check API health status"
+			}
+		},
+		{
+			"name": "API Info",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Get API information and endpoints"
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "noteId",
+			"value": "",
+			"type": "string",
+			"description": "ID of the note to be used in requests"
+		}
+	]
+}

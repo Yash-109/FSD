@@ -5,13 +5,17 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Title is required'],
     trim: true,
-    maxlength: [100, 'Title cannot be longer than 100 characters']
+    maxlength: [200, 'Title cannot be more than 200 characters']
   },
   content: {
     type: String,
     required: [true, 'Content is required'],
     trim: true,
-    maxlength: [5000, 'Content cannot be longer than 5000 characters']
+    maxlength: [5000, 'Content cannot be more than 5000 characters']
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now
   },
   createdAt: {
     type: Date,
@@ -21,13 +25,18 @@ const noteSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-}, {
-  timestamps: true // Automatically manage createdAt and updatedAt
 });
 
 // Update the updatedAt field before saving
-noteSchema.pre('findOneAndUpdate', function() {
-  this.set({ updatedAt: new Date() });
+noteSchema.pre('save', function(next) {
+  this.updatedAt = Date.now();
+  next();
+});
+
+// Update the updatedAt field before updating
+noteSchema.pre(['updateOne', 'findOneAndUpdate'], function(next) {
+  this.set({ updatedAt: Date.now() });
+  next();
 });
 
 module.exports = mongoose.model('Note', noteSchema);

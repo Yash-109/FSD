@@ -1,89 +1,97 @@
-# Notes API - Mobile Backend
+# Notes API Documentation
 
-A RESTful API for a notes-taking mobile app built with Express.js and MongoDB.
+A RESTful API for a notes-taking application built with Express.js and MongoDB.
 
-## Features
+## Base URL
+```
+http://localhost:3000
+```
 
-- ✅ Create, Read, Update, Delete notes
-- ✅ MongoDB integration with Mongoose
-- ✅ Input validation and error handling
-- ✅ Pagination support
-- ✅ CORS enabled for mobile apps
-- ✅ Security headers with Helmet
-- ✅ Request logging with Morgan
+## Prerequisites
+- Node.js installed
+- MongoDB installed and running (or MongoDB Atlas connection)
+- Postman or similar API testing tool
 
-## Setup & Installation
+## Getting Started
 
-1. **Install dependencies:**
-   ```bash
-   npm install
-   ```
+1. Install dependencies:
+```bash
+npm install
+```
 
-2. **Start MongoDB** (make sure MongoDB is running on localhost:27017)
+2. Create a `.env` file with your MongoDB connection string:
+```
+MONGODB_URI=mongodb://localhost:27017/notes-app
+PORT=3000
+NODE_ENV=development
+```
 
-3. **Run the server:**
-   ```bash
-   npm start
-   # or for development
-   npm run dev
-   ```
+3. Start the server:
+```bash
+# Development mode with auto-restart
+npm run dev
 
-4. **API Documentation:** Visit http://localhost:3000
+# Production mode
+npm start
+```
 
 ## API Endpoints
 
-### Base URL: `http://localhost:3000/api/notes`
-
 ### 1. Get All Notes
-```
-GET /api/notes
-```
-**Query Parameters:**
-- `page` (optional): Page number (default: 1)
-- `limit` (optional): Notes per page (default: 10)
-- `sort` (optional): Sort order (default: -createdAt)
+- **Method:** GET
+- **URL:** `/api/notes`
+- **Description:** Retrieve all notes sorted by update time (newest first)
 
 **Response:**
 ```json
 {
   "success": true,
-  "count": 5,
-  "total": 25,
-  "page": 1,
-  "pages": 3,
-  "data": [...]
+  "count": 2,
+  "data": [
+    {
+      "_id": "64a1b2c3d4e5f6789abcdef0",
+      "title": "Meeting Notes",
+      "content": "Discuss project timeline and deliverables",
+      "timestamp": "2023-07-02T14:30:00.000Z",
+      "createdAt": "2023-07-02T14:30:00.000Z",
+      "updatedAt": "2023-07-02T14:30:00.000Z"
+    }
+  ]
 }
 ```
 
 ### 2. Get Single Note
-```
-GET /api/notes/:id
-```
+- **Method:** GET
+- **URL:** `/api/notes/:id`
+- **Description:** Retrieve a specific note by ID
+
+**Example:** `/api/notes/64a1b2c3d4e5f6789abcdef0`
 
 **Response:**
 ```json
 {
   "success": true,
   "data": {
-    "_id": "note_id",
-    "title": "My Note",
-    "content": "Note content...",
-    "createdAt": "2025-10-09T10:30:00.000Z",
-    "updatedAt": "2025-10-09T10:30:00.000Z"
+    "_id": "64a1b2c3d4e5f6789abcdef0",
+    "title": "Meeting Notes",
+    "content": "Discuss project timeline and deliverables",
+    "timestamp": "2023-07-02T14:30:00.000Z",
+    "createdAt": "2023-07-02T14:30:00.000Z",
+    "updatedAt": "2023-07-02T14:30:00.000Z"
   }
 }
 ```
 
 ### 3. Create New Note
-```
-POST /api/notes
-```
+- **Method:** POST
+- **URL:** `/api/notes`
+- **Description:** Create a new note
 
 **Request Body:**
 ```json
 {
-  "title": "My New Note",
-  "content": "This is the content of my note..."
+  "title": "New Note Title",
+  "content": "This is the content of the note"
 }
 ```
 
@@ -93,32 +101,49 @@ POST /api/notes
   "success": true,
   "message": "Note created successfully",
   "data": {
-    "_id": "new_note_id",
-    "title": "My New Note",
-    "content": "This is the content of my note...",
-    "createdAt": "2025-10-09T10:30:00.000Z",
-    "updatedAt": "2025-10-09T10:30:00.000Z"
+    "_id": "64a1b2c3d4e5f6789abcdef1",
+    "title": "New Note Title",
+    "content": "This is the content of the note",
+    "timestamp": "2023-07-02T15:45:00.000Z",
+    "createdAt": "2023-07-02T15:45:00.000Z",
+    "updatedAt": "2023-07-02T15:45:00.000Z"
   }
 }
 ```
 
 ### 4. Update Note
-```
-PUT /api/notes/:id
-```
+- **Method:** PUT
+- **URL:** `/api/notes/:id`
+- **Description:** Update an existing note
 
 **Request Body:**
 ```json
 {
   "title": "Updated Note Title",
-  "content": "Updated note content..."
+  "content": "This is the updated content"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Note updated successfully",
+  "data": {
+    "_id": "64a1b2c3d4e5f6789abcdef1",
+    "title": "Updated Note Title",
+    "content": "This is the updated content",
+    "timestamp": "2023-07-02T15:45:00.000Z",
+    "createdAt": "2023-07-02T15:45:00.000Z",
+    "updatedAt": "2023-07-02T16:30:00.000Z"
+  }
 }
 ```
 
 ### 5. Delete Note
-```
-DELETE /api/notes/:id
-```
+- **Method:** DELETE
+- **URL:** `/api/notes/:id`
+- **Description:** Delete a note by ID
 
 **Response:**
 ```json
@@ -126,87 +151,107 @@ DELETE /api/notes/:id
   "success": true,
   "message": "Note deleted successfully",
   "data": {
-    "_id": "deleted_note_id",
-    "title": "Deleted Note",
-    "content": "Content of deleted note...",
-    "createdAt": "2025-10-09T10:30:00.000Z",
-    "updatedAt": "2025-10-09T10:30:00.000Z"
+    "_id": "64a1b2c3d4e5f6789abcdef1",
+    "title": "Deleted Note Title",
+    "content": "Content of deleted note",
+    "timestamp": "2023-07-02T15:45:00.000Z",
+    "createdAt": "2023-07-02T15:45:00.000Z",
+    "updatedAt": "2023-07-02T16:30:00.000Z"
   }
 }
 ```
 
-## Testing with Postman
-
-### Collection Setup
-1. Create a new collection called "Notes API"
-2. Set base URL variable: `{{baseUrl}}` = `http://localhost:3000/api/notes`
-
-### Test Requests
-
-#### 1. Create Note
-- **Method:** POST
-- **URL:** `{{baseUrl}}`
-- **Headers:** `Content-Type: application/json`
-- **Body (raw JSON):**
-```json
-{
-  "title": "Test Note",
-  "content": "This is a test note for the mobile app"
-}
-```
-
-#### 2. Get All Notes
-- **Method:** GET
-- **URL:** `{{baseUrl}}`
-
-#### 3. Get Single Note
-- **Method:** GET
-- **URL:** `{{baseUrl}}/NOTE_ID_HERE`
-
-#### 4. Update Note
-- **Method:** PUT
-- **URL:** `{{baseUrl}}/NOTE_ID_HERE`
-- **Headers:** `Content-Type: application/json`
-- **Body (raw JSON):**
-```json
-{
-  "title": "Updated Test Note",
-  "content": "This note has been updated"
-}
-```
-
-#### 5. Delete Note
-- **Method:** DELETE
-- **URL:** `{{baseUrl}}/NOTE_ID_HERE`
-
 ## Error Responses
 
-All errors follow this format:
+### 400 Bad Request
 ```json
 {
   "success": false,
-  "message": "Error description",
-  "errors": ["Detailed error messages"]
+  "message": "Please provide both title and content"
 }
 ```
 
-## Note Schema
-
-```javascript
+### 404 Not Found
+```json
 {
-  title: String (required, max 100 chars),
-  content: String (required, max 5000 chars),
-  createdAt: Date (auto-generated),
-  updatedAt: Date (auto-updated)
+  "success": false,
+  "message": "Note not found"
 }
 ```
 
-## Status Codes
+### 500 Server Error
+```json
+{
+  "success": false,
+  "message": "Server Error",
+  "error": "Error details here"
+}
+```
 
-- `200` - Success
-- `201` - Created
-- `400` - Bad Request (validation error)
-- `404` - Not Found
-- `500` - Internal Server Error
+## Postman Testing Collection
 
-Ready for mobile app integration! 📱
+### Test Scenarios
+
+1. **Create a Note**
+   - Method: POST
+   - URL: `http://localhost:3000/api/notes`
+   - Body (JSON):
+   ```json
+   {
+     "title": "Shopping List",
+     "content": "Milk, Eggs, Bread, Butter"
+   }
+   ```
+
+2. **Get All Notes**
+   - Method: GET
+   - URL: `http://localhost:3000/api/notes`
+
+3. **Get Specific Note**
+   - Method: GET
+   - URL: `http://localhost:3000/api/notes/[COPY_ID_FROM_STEP_1]`
+
+4. **Update Note**
+   - Method: PUT
+   - URL: `http://localhost:3000/api/notes/[COPY_ID_FROM_STEP_1]`
+   - Body (JSON):
+   ```json
+   {
+     "title": "Updated Shopping List",
+     "content": "Milk, Eggs, Bread, Butter, Cheese, Apples"
+   }
+   ```
+
+5. **Delete Note**
+   - Method: DELETE
+   - URL: `http://localhost:3000/api/notes/[COPY_ID_FROM_STEP_1]`
+
+## Validation Rules
+
+- **Title:** Required, max 200 characters
+- **Content:** Required, max 5000 characters
+- Both fields are trimmed automatically
+
+## Features
+
+- ✅ CRUD operations (Create, Read, Update, Delete)
+- ✅ Input validation
+- ✅ Error handling
+- ✅ Automatic timestamps
+- ✅ CORS enabled
+- ✅ JSON responses
+- ✅ Health check endpoint
+- ✅ Environment configuration
+- ✅ Development with auto-restart
+
+## Additional Endpoints
+
+### Health Check
+- **Method:** GET
+- **URL:** `/health`
+- **Description:** Check if the API is running
+
+### API Info
+- **Method:** GET
+- **URL:** `/`
+- **Description:** Get API information and available endpoints
